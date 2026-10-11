@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prop Firm Masters</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  @page { size: A4; margin: 0; }
+  :root { --bg:#0b0b0c; --panel:#151517; --line:#2a2a2e; --gold:#c9a45c; --gold2:#e3c98f; --text:#e9e6df; --muted:#a19d94; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); }
+  body { color: var(--text); font-family: Inter, Arial, sans-serif; font-size: 11.5pt; line-height: 1.55;
+         -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  /* Cada hoja A4: el contenido se reparte en toda la altura (sin hueco abajo) */
+  .page { width: 210mm; height: 297mm; padding: 20mm 18mm 22mm; position: relative; page-break-after: always; overflow: hidden;
+          display: flex; flex-direction: column; justify-content: space-between; }
+  .page:last-child { page-break-after: auto; }
+  h1, h2, h3, .kicker, .num, .stat .n, .step .n { font-family: Oswald, Arial Narrow, sans-serif; text-transform: uppercase; letter-spacing: .02em; }
+  .kicker { color: var(--gold); font-size: 9.5pt; letter-spacing: .25em; margin-bottom: 4mm; }
+  h2 { font-size: 26pt; color: var(--text); line-height: 1.12; margin-bottom: 6mm; }
+  h2 em { font-style: normal; color: var(--gold); }
+  h3 { font-size: 14pt; color: var(--gold2); margin-bottom: 2.5mm; }
+  p { margin-bottom: 3.5mm; }
+  .lead { font-size: 13pt; color: var(--text); }
+  .muted { color: var(--muted); }
+  .foot { position: absolute; left: 18mm; right: 18mm; bottom: 10mm; display: flex; justify-content: space-between;
+          font-size: 8pt; color: var(--muted); border-top: 1px solid var(--line); padding-top: 3mm; }
+  /* portada */
+  .cover { justify-content: center; align-items: center; text-align: center;
+           background: radial-gradient(ellipse at 50% 35%, #1d1a14 0%, var(--bg) 62%); }
+  .cover img { width: 80mm; margin-bottom: 12mm; mix-blend-mode: lighten; }
+  .cover h1 { font-size: 34pt; line-height: 1.08; margin-bottom: 7mm; }
+  .cover h1 em { font-style: normal; color: var(--gold); }
+  .cover .sub { font-size: 13pt; color: var(--muted); max-width: 145mm; }
+  .cover .stats { margin-top: 16mm; width: 100%; }
+  .cover .tag { margin-top: 14mm; font-family: Oswald, sans-serif; color: var(--gold); letter-spacing: .3em; font-size: 10pt; }
+  /* bloques */
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 6mm; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 3mm; padding: 7mm; }
+  .card.gold { border-color: var(--gold); }
+  ul.check { list-style: none; }
+  ul.check li { padding-left: 6mm; position: relative; margin-bottom: 2.6mm; }
+  ul.check li::before { content: "—"; position: absolute; left: 0; color: var(--gold); }
+  ul.x li::before { content: "×"; color: #c46a5f; }
+  /* banda de números */
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .stat { padding: 6mm 3mm; text-align: center; }
+  .stat + .stat { border-left: 1px solid var(--line); }
+  .stat .n { display: block; font-size: 24pt; color: var(--gold); line-height: 1.1; }
+  .stat .l { font-size: 9pt; color: var(--muted); }
+  /* proceso en pasos */
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4mm; }
+  .step { background: var(--panel); border: 1px solid var(--line); border-top: 2px solid var(--gold); border-radius: 2mm; padding: 5mm 4mm; }
+  .step .n { color: var(--gold); font-size: 20pt; line-height: 1; display: block; margin-bottom: 2mm; }
+  .step b { display: block; margin-bottom: 1.5mm; }
+  .step span { font-size: 9.5pt; color: var(--muted); }
+  /* módulos */
+  .module { display: grid; grid-template-columns: 18mm 1fr; gap: 5mm; padding: 7mm 0; border-bottom: 1px solid var(--line); }
+  .module:last-child { border-bottom: 0; }
+  .num { font-size: 30pt; color: var(--gold); line-height: 1; }
+  .pill { display: inline-block; font-size: 8.5pt; color: var(--gold); border: 1px solid var(--gold); border-radius: 10mm; padding: .6mm 3mm; margin-bottom: 2.5mm; letter-spacing: .05em; }
+  .inc { margin-top: 2mm; font-size: 10pt; color: var(--muted); }
+  .inc b { color: var(--gold2); font-weight: 600; }
+  .faq dt { font-weight: 600; color: var(--gold2); margin-top: 6mm; font-size: 12pt; }
+  .faq dt:first-child { margin-top: 0; }
+  .faq dd { margin-top: 1.5mm; }
+  .cta { text-align: center; }
+  .cta .btn { display: inline-block; background: var(--gold); color: #111; font-family: Oswald, sans-serif; font-size: 17pt;
+              letter-spacing: .08em; padding: 4.5mm 14mm; border-radius: 2mm; text-decoration: none; }
+  .cta .wa { margin-top: 5mm; font-size: 12.5pt; }
+  .risk { font-size: 8.5pt; color: var(--muted); border: 1px solid var(--line); border-radius: 2mm; padding: 4.5mm; }
+  .proof { display: grid; grid-template-columns: 70mm 1fr; gap: 8mm; align-items: center; }
+  .proof img { width: 100%; border-radius: 2mm; border: 1px solid var(--line); }
+  .quote { border-left: 3px solid var(--gold); padding: 2mm 0 2mm 6mm; font-size: 14pt; line-height: 1.4; }
+  /* En pantalla (navegador): hojas separadas, sin huecos raros */
+  @media screen {
+    body { padding: 8mm 0; }
+    .page { margin: 0 auto 8mm; box-shadow: 0 0 0 1px var(--line); }
+  }
+  @media screen and (max-width: 820px) {
+    .page { width: 100%; height: auto; min-height: 0; padding: 12mm 6mm 18mm; justify-content: flex-start; gap: 10mm; }
+    .grid2, .steps, .proof { grid-template-columns: 1fr; }
+    .stats { grid-template-columns: 1fr; }
+    .stat + .stat { border-left: 0; border-top: 1px solid var(--line); }
+    .cover { min-height: 100vh; }
+  }
+</style>
+</head>
+<body>
+
+<!-- 1. PORTADA -->
+<section class="page cover">
+  <img src="assets/p1_Image30.jpg" alt="Prop Firm Masters">
+  <h1>Pasá evaluaciones de fondeo de CFD<br><em>y cobrá de tus cuentas fondeadas</em></h1>
+  <p class="sub">El modelo matemático de Carlos Donnet para que las pruebas dejen de costarte dinero y las cuentas fondeadas se conviertan en retiros.</p>
+  <div class="stats">
+    <div class="stat"><span class="n">1,3 M USD</span><span class="l">bajo gestión en CFD</span></div>
+    <div class="stat"><span class="n">Top 4</span><span class="l">mundial · competencia Darwinex 2024</span></div>
+    <div class="stat"><span class="n">Automatizable</span><span class="l">el modelo se aplica de forma automática</span></div>
+  </div>
+  <p class="tag">PROP FIRM MASTERS · CFD · 2026</p>
+</section>
+
+<!-- 2. EL PROBLEMA, PARA QUIÉN ES Y EL PROCESO -->
+<section class="page">
+  <div>
+    <p class="kicker">El problema</p>
+    <h2>Las evaluaciones de CFD no se pierden por la estrategia.<br><em>Se pierden por cómo se enfrentan.</em></h2>
+    <p class="lead">Dos fases, límite de pérdida diaria, pérdida máxima, reglas de consistencia. Cada evaluación que se quema es dinero que no vuelve, y cada intento fallido suma presión al siguiente.</p>
+    <p>Prop Firm Masters no es otra estrategia de entrada. Es un <strong>modelo matemático</strong>: cuánto arriesgar, cómo encadenar las evaluaciones y cómo gestionar la cuenta fondeada para cobrar, calculado con números y no con intuición.</p>
+  </div>
+
+  <div class="grid2">
+    <div class="card gold">
+      <h3>Es para vos si…</h3>
+      <ul class="check">
+        <li>Hacés o querés hacer evaluaciones en empresas de fondeo de CFD (FTMO y similares).</li>
+        <li>Ya quemaste pruebas y querés dejar de financiar a la empresa.</li>
+        <li>Tenés una estrategia y te falta un plan de riesgo para estas reglas.</li>
+        <li>Ya estás fondeado y querés cobrar de forma sostenida.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>No es para vos si…</h3>
+      <ul class="check x">
+        <li>Buscás señales para copiar sin entender qué hacés.</li>
+        <li>Esperás resultados sin seguir el proceso.</li>
+        <li>No podés asumir el costo de una evaluación.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div>
+    <p class="kicker">El proceso, en cuatro pasos</p>
+    <div class="steps">
+      <div class="step"><span class="n">1</span><b>Elegís la empresa</b><span>La empresa y el tamaño de cuenta que mejor se adaptan al modelo.</span></div>
+      <div class="step"><span class="n">2</span><b>Aplicás el modelo</b><span>Riesgo calculado contra las reglas de cada fase de la evaluación.</span></div>
+      <div class="step"><span class="n">3</span><b>Pasás las fases</b><span>Fase 1 y fase 2 con el procedimiento paso a paso.</span></div>
+      <div class="step"><span class="n">4</span><b>Cobrás</b><span>Gestión de la cuenta fondeada para sostener los retiros.</span></div>
+    </div>
+  </div>
+  <div class="foot"><span>Prop Firm Masters · Carlos Donnet</span><span>2</span></div>
+</section>
+
+<!-- 3. MÓDULOS -->
+<section class="page">
+  <div>
+    <p class="kicker">Qué vas a aprender</p>
+    <h2>Un modelo, <em>de la evaluación al cobro</em></h2>
+  </div>
+
+  <div>
+    <div class="module">
+      <div class="num">01</div>
+      <div>
+        <span class="pill">Evaluaciones · fase 1 y fase 2</span>
+        <h3>Modelo matemático para pasar evaluaciones</h3>
+        <p>Un modelo estadístico pensado para que, siguiendo los pasos, las evaluaciones dejen de ser una pérdida neta y operes sin el miedo a perder el costo de la prueba.</p>
+        <p class="inc"><b>Incluye:</b> el modelo explicado paso a paso · el procedimiento de aplicación · la automatización del modelo para que se aplique solo.</p>
+      </div>
+    </div>
+
+    <div class="module">
+      <div class="num">02</div>
+      <div>
+        <span class="pill">Cuentas fondeadas</span>
+        <h3>Gestión profesional para cobrar</h3>
+        <p>Qué hacer una vez fondeado para que la cuenta se convierta en retiros y no en una nueva evaluación.</p>
+        <p class="inc"><b>Incluye:</b> escalado de posiciones · protección del equity y reducción del drawdown · protocolos para cuidar la cuenta y sostener los retiros.</p>
+      </div>
+    </div>
+
+    <div class="module">
+      <div class="num">03</div>
+      <div>
+        <span class="pill">Empresas y reglas</span>
+        <h3>Dónde y cómo aplicarlo</h3>
+        <p>No todas las empresas de fondeo de CFD son iguales, y las reglas cambian.</p>
+        <p class="inc"><b>Incluye:</b> guía y recomendaciones de empresas confiables · cómo aprovechar las reglas y el apalancamiento de cada empresa a tu favor.</p>
+      </div>
+    </div>
+  </div>
+
+  <p class="quote">"Prop Firm Masters no solo te enseña a ganar: te enseña a dejar de perder en lo que más cuesta, que son las evaluaciones."</p>
+  <div class="foot"><span>Prop Firm Masters · Carlos Donnet</span><span>3</span></div>
+</section>
+
+<!-- 4. QUIÉN TE ENSEÑA + QUÉ ES Y QUÉ NO -->
+<section class="page">
+  <div>
+    <p class="kicker">Quién te enseña</p>
+    <h2>Carlos Donnet</h2>
+  </div>
+
+  <div class="proof">
+    <img src="assets/p7_Image77.jpg" alt="Fase 1 aprobada por un alumno">
+    <div>
+      <p class="lead">Trader de CFD y futuros y desarrollador de sistemas propios aplicados al trading.</p>
+      <ul class="check">
+        <li><strong>1,3 millones de USD bajo gestión en CFD.</strong></li>
+        <li><strong>Top 4 mundial</strong> en la competencia internacional de traders de Darwinex (2024).</li>
+        <li>Opera lo que enseña, con el mismo modelo de este programa.</li>
+      </ul>
+      <p class="muted" style="margin-top:4mm">A la izquierda: un alumno aprobando la Fase 1 de su evaluación.</p>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><span class="n">1,3 M</span><span class="l">USD bajo gestión en CFD</span></div>
+    <div class="stat"><span class="n">Top 4</span><span class="l">mundial · Darwinex 2024</span></div>
+    <div class="stat"><span class="n">3 módulos</span><span class="l">de la evaluación al cobro</span></div>
+  </div>
+
+  <div class="card">
+    <h3>Lo que es y lo que no es</h3>
+    <div class="grid2" style="margin-top:3mm">
+      <ul class="check">
+        <li>Un modelo con números claros.</li>
+        <li>Reglas de riesgo pensadas para evaluaciones de CFD.</li>
+        <li>Aplicable a la estrategia que ya usás.</li>
+      </ul>
+      <ul class="check x">
+        <li>Una estrategia mágica.</li>
+        <li>Señales para copiar sin criterio.</li>
+        <li>Un atajo sin proceso.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot"><span>Prop Firm Masters · Carlos Donnet</span><span>4</span></div>
+</section>
+
+<!-- 5. FAQ + CTA -->
+<section class="page">
+  <div>
+    <p class="kicker">Preguntas frecuentes</p>
+    <h2>Antes de <em>empezar</em></h2>
+  </div>
+  <dl class="faq">
+    <dt>Ya tengo una estrategia. ¿Me sirve?</dt>
+    <dd>Sí. El modelo no reemplaza tu forma de entrar al mercado: define cuánto arriesgar y cómo enfrentar cada fase de la evaluación y la cuenta fondeada.</dd>
+    <dt>¿Sirve para cuentas de fondeo de futuros?</dt>
+    <dd>No. Prop Firm Masters está pensado para empresas de fondeo de CFD. Para futuros usamos Tradevo MaxKiller, un sistema automatizado específico para esas cuentas.</dd>
+    <dt>¿Cuándo puedo empezar a aplicarlo?</dt>
+    <dd>En tu próxima evaluación. La velocidad depende de tu disciplina y del mercado.</dd>
+    <dt>¿Tengo que hacer todo a mano?</dt>
+    <dd>No. El programa incluye la automatización del modelo para que se aplique solo.</dd>
+  </dl>
+
+  <div class="cta">
+    <a class="btn" href="https://wa.me/5493364564616?text=Hola%20Carlos%2C%20quiero%20info%20de%20Prop%20Firm%20Masters.">QUIERO ENTRAR</a>
+    <p class="wa">WhatsApp: <strong>+54 9 3364 56-4616</strong> · Instagram: <strong>@carlosdonnet</strong></p>
+  </div>
+
+  <p class="risk"><strong>Advertencia de riesgo.</strong> Operar CFD implica un riesgo elevado de pérdida y puede no ser adecuado para todos; en algunos países los CFD no están disponibles para inversores minoristas. Prop Firm Masters es un programa educativo y no constituye asesoramiento financiero. Los resultados mencionados no garantizan resultados futuros. Las condiciones de cada empresa de fondeo las fija esa empresa y pueden cambiar: verificalas antes de comprar una evaluación.</p>
+  <div class="foot"><span>Prop Firm Masters · Carlos Donnet</span><span>5</span></div>
+</section>
+
+</body>
+</html>
